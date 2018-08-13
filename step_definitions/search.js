@@ -30,7 +30,10 @@ Then(/list of search results has (.+)/, async (results) => {
     search.waitSearchResultMenu();
 
     if (results === 'No results found.') {
-        return expect(search.searchResult.getText()).to.eventually.equal('No results found.', 'There is no inscription "No results found." In the list of search results');
+        return expect(search.searchResult.getText()).to.eventually.equal(
+            'No results found.',
+            'There is no inscription "No results found." In the list of search results'
+        );
     }
 
     browser.wait(

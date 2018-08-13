@@ -8,7 +8,7 @@ setDefaultTimeout(TIMEOUT.xl * 20);
 After(function (testCase) {
     if (testCase.result.status === Status.FAILED) {
 
-        const fileName = `${testCase.pickle.name} ${new Date().getTime()}` 
+        const fileName = `${testCase.pickle.name} ${new Date().getTime()}`;
 
         browser.driver.manage().logs().getAvailableLogTypes().then(logs => {
             
@@ -30,11 +30,11 @@ After(function (testCase) {
         return browser.takeScreenshot().then(screenShot => {
             
             const screenDirPath = './artifacts/screenshots',
-                swcreenFilePath = `${screenDirPath}/${fileName}.png`;
+                screenFilePath = `${screenDirPath}/${fileName}.png`;
 
             fs.existsSync(screenDirPath) || fs.mkdirSync(screenDirPath);
             const decodedImage = new Buffer(screenShot, 'base64');    
-            let stream = fs.createWriteStream(swcreenFilePath);
+            let stream = fs.createWriteStream(screenFilePath);
             stream.write(new Buffer(screenShot, 'base64'));
             stream.end();
             return this.attach(decodedImage, 'image/png');

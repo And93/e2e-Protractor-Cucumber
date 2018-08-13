@@ -7,7 +7,7 @@ const Search = require('./common/search');
 const header = new Header();
 const footer = new Footer();
 const search = new Search();
-const logger = require('../configs/winstone.conf').logger
+const logger = require('../configs/winstone.conf').logger;
 
 class BasePage {
     
@@ -40,7 +40,10 @@ class BasePage {
     }
 
     checkPageTitle(title) {
-        return expect(this.getPageTitle()).to.eventually.equal(title, `The title of the page does not have the expected title: ${title}`);
+        return expect(this.getPageTitle()).to.eventually.equal(
+            title,
+            `The title of the page does not have the expected title: ${title}`
+        );
     };
     
     getPageTitle() {

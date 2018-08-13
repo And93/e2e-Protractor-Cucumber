@@ -10,7 +10,7 @@ class Search {
         this.columnName = this.searchResult.$$('h3');
 
         this.loader = $(by.cssContainingText('.ng-star-inserted', 'Searching ...'));
-    }
+    };
     
     waitSearchResultMenu() {
         browser.wait(

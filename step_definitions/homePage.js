@@ -28,7 +28,7 @@ When(/click the button at the (.+) of the page/, (position) => {
     } else if (position === 'bottom') {
         index = 2;
     } else {
-        const errorMessage = 'Set the correct position of the "get started" button'
+        const errorMessage = 'Set the correct position of the "get started" button';
         logger.error(errorMessage);
         throw new Error(errorMessage);
     }
@@ -45,5 +45,8 @@ Then(/the block (.+) should be visible/, (index) => {
 });
 
 Then(/the name of (.+) block should be '(.+)'/, (index, name) => {
-    return expect(homePage.getBlock(indexOfBlock(index)).getText()).to.eventually.be.equal(name, 'Block name is incoerrect');
+    return expect(homePage.getBlock(indexOfBlock(index)).getText()).to.eventually.be.equal(
+        name,
+        'Block name is incorrect'
+    );
 });
