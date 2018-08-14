@@ -15,11 +15,9 @@ class BasePage {
         this.header = header;
         this.footer = footer;
         this.search = search;
-        
-        this.home = $('#home');
     };
 
-    open(path = '', expectedElement = this.home) {
+    open(path, expectedElement) {
         browser.get('/' + path);
         logger.info(`I have visited: ${browser.baseUrl}/${path}`);
         
