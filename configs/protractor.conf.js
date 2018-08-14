@@ -46,15 +46,15 @@ exports.config = {
     },
     
     onPrepare: () => {
+        const chai = require('chai');
+        
         global.TIMEOUT = TIMEOUT;
         global.EC = protractor.ExpectedConditions;
-
-        const chai = require('chai');
 
         chai.use(require('chai-as-promised'));
         global.expect = chai.expect;
         global.assert = chai.assert;
-        global.should = chai.should();
+        global.should = chai.should;
 
         browser.waitForAngularEnabled(true);
         return browser.driver.manage().window().setSize(SIZE_OF_WINDOW.fullHD.width, SIZE_OF_WINDOW.fullHD.height);

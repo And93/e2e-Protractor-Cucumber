@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const {Then, When, Given, setDefaultTimeout} = require('cucumber');
 const logger = require('../configs/winstone.conf').logger;
@@ -46,7 +46,7 @@ Then(/list of search results has (.+)/, async (results) => {
 
     const text = await search.columnName.getText();
 
-    if (!text.join("; ").includes(results)) {
+    if (!text.join('; ').includes(results)) {
         throw new Error(`Did not found match name of column. Expected: ${results}`);
     }
     return;

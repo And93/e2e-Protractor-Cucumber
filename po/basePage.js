@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const Header = require('./common/header');
 const Footer = require('./common/footer');

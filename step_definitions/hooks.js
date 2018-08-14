@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const {After, Before, Status, setDefaultTimeout} = require('cucumber');
 const fs = require('fs');

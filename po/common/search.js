@@ -16,7 +16,7 @@ class Search {
         browser.wait(
             EC.visibilityOf(this.searchResult),
             TIMEOUT.m,
-            "The search menu is not visible"
+            'The search menu is not visible'
         );
         browser.driver.sleep(1500)
         //browser.wait(

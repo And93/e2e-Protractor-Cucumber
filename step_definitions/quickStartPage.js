@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const {Then, When, Given, setDefaultTimeout} = require('cucumber');
 const logger = require('../configs/winstone.conf').logger;
