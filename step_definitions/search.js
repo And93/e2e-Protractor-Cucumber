@@ -29,9 +29,11 @@ Then(/list of search results is empty/, () => {
 Then(/list of search results has (.+)/, async (results) => {
     search.waitSearchResultMenu();
 
-    if (results === 'No results found.') {
+    const noResultsFound = 'No results found.';
+
+    if (results === noResultsFound) {
         return expect(search.searchResult.getText()).to.eventually.equal(
-            'No results found.',
+            noResultsFound,
             'There is no inscription "No results found." In the list of search results'
         );
     }

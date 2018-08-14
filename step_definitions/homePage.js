@@ -15,22 +15,21 @@ Given(/the home page is opened/, () => {
     return homePage.open();
 });
 
-Then(/the 'get started' button should be visible/, () => {
-    return expect(homePage.startedButtons.get(1).isDisplayed()).to.eventually.be.true;
-});
-
-When(/click the button at the (.+) of the page/, (position) => {
+When(/click the button at the (top|bottom) of the page/, (position) => {
 
     let index;
 
-    if (position === 'top') {
-        index = 1;
-    } else if (position === 'bottom') {
-        index = 2;
-    } else {
-        const errorMessage = 'Set the correct position of the "get started" button';
-        logger.error(errorMessage);
-        throw new Error(errorMessage);
+    switch (position) {
+        case 'top':
+            index = 1;
+            break;
+        case 'bottom':
+            index = 2;
+            break;
+        default:
+            const errorMessage = 'Set the correct position of the "get started" button';
+            logger.error(errorMessage);
+            throw new Error(errorMessage);
     }
 
     return homePage.startedButtons.get(index).click();
@@ -38,6 +37,10 @@ When(/click the button at the (.+) of the page/, (position) => {
 
 When(/scroll to (.+) block/, (index) => {
     return homePage.scrollTo(homePage.getBlock(indexOfBlock(index)));
+});
+
+Then(/the 'get started' button should be visible/, () => {
+    return expect(homePage.startedButtons.get(1).isDisplayed()).to.eventually.be.true;
 });
 
 Then(/the block (.+) should be visible/, (index) => {

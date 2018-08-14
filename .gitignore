@@ -3,6 +3,5 @@ node_modules
 
 artifacts/logs/*.log
 artifacts/logs/*.json
-artifacts/reports/html/*.html
 artifacts/reports/json/*.json
 artifacts/screenshots/*.png

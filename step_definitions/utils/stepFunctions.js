@@ -1,3 +1,5 @@
+'use strict';
+
 const logger = require('../../configs/winstone.conf').logger;
 
 // TODO merge these two functions
@@ -38,5 +40,3 @@ const highlightElement2 = (element) => {
         throw new Error(err);
     });
 };
-
-module.exports = {highlightElement};

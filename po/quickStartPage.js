@@ -11,14 +11,7 @@ class QuickStartPage extends BasePage {
     };
 
     open() {
-        return super.open(
-            'guide/quickstart',
-            () => browser.wait(
-                EC.visibilityOf(this.guideQuickStar),
-                TIMEOUT.m,
-                'The QuickStart page was not open'
-            )
-        );
+        return super.open('guide/quickstart', this.guideQuickStar);
     };
 }
 

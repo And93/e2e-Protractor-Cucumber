@@ -16,7 +16,7 @@ const logger = winston.createLogger({
             filename: `${path}error.log`,
             level: 'error'
         })
-    ],
+    ]
 });
 
 module.exports = {

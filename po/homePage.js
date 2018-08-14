@@ -11,11 +11,11 @@ class HomePage extends BasePage {
         this.namesOfBlocks = this.contentBlocks.$$('.text-headline');
 
         this.startedButtons = $$('[href="guide/quickstart"]');
-    }
+    };
 
     getBlock(index) {
         return this.namesOfBlocks.get(index);
-    }
+    };
 }
 
 module.exports = HomePage;

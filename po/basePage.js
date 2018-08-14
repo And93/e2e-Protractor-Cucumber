@@ -16,28 +16,23 @@ class BasePage {
         this.footer = footer;
         this.search = search;
         
-        this.logo = $('#intro');
-    }
+        this.home = $('#home');
+    };
 
-    open(path = '', condition) {
+    open(path = '', expectedElement = this.home) {
         browser.get('/' + path);
         logger.info(`I have visited: ${browser.baseUrl}/${path}`);
-        const page = path ? path : 'home';
-
-        if (condition) {
-            return condition();
-        }
         
         return browser.wait(
-            EC.visibilityOf(this.logo),
+            EC.visibilityOf(expectedElement),
             TIMEOUT.m,
-            `The logo in ${page} page is not visible`
+            `The ${expectedElement.name} page was not open`
         );
     };
 
     scrollTo(element) {
         return browser.executeScript('arguments[0].scrollIntoView();', element);
-    }
+    };
 
     checkPageTitle(title) {
         return expect(this.getPageTitle()).to.eventually.equal(
