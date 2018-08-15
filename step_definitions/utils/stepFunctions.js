@@ -10,16 +10,16 @@ const highlightElement = (element) => {
     return element.getCssValue('backgroundColor').then((col) => {
         bg = col;
     }).then(() => {
-        return browser.executeScript('arguments[0].style.backgroundColor = "red"', element)
+        return browser.executeScript('arguments[0].style.backgroundColor = "red"', element);
     }).then(() => {
-        return browser.driver.sleep(1000);
+        return browser.driver.sleep(1000); // TODO Delete this sleep
     }).then(() => {
-        return browser.executeScript(`arguments[0].style.backgroundColor = "${bg}"`, element)
+        return browser.executeScript(`arguments[0].style.backgroundColor = "${bg}"`, element);
     }).then(() => {
-        return browser.driver.sleep(1000);
+        return browser.driver.sleep(1000); // TODO Delete this sleep
     }).catch(err => {
         logger.error('Error is: ' + err);
-        throw new Error(err)
+        throw new Error(err);
     });
 };
 

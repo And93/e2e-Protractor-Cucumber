@@ -5,7 +5,7 @@ Feature: API Page
         Given the api page is opened
         Then the api filter should be visible
 
-    Scenario Outline: Fillin filter and check results <TypeData> - <StatusData>
+    Scenario Outline: Filling the filter and checking the results <TypeData> - <StatusData>
         Given the api page is opened
         When I fill type field with data: <TypeData>
         And I fill status field with data: <StatusData>
