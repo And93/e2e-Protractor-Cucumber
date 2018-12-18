@@ -1,5 +1,5 @@
 {
-  "name": "finalproject",
+  "name": "e2e-protractor-cucumber",
   "version": "1.0.0",
   "description": "Final project with report, logs, screenshots. Stack: JS + Protractor + Cucumber",
   "scripts": {
