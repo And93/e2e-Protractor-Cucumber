@@ -9,21 +9,14 @@ class Search {
 
         this.columnName = this.searchResult.$$('h3');
 
-        this.loader = $(by.cssContainingText('.ng-star-inserted', 'Searching ...'));
+        this.loader = element(by.cssContainingText('.ng-star-inserted', 'Searching ...'));
     };
-    
+
     waitSearchResultMenu() {
-        browser.wait(
-            EC.visibilityOf(this.searchResult),
-            TIMEOUT.m,
-            'The search menu is not visible'
-        );
-        browser.driver.sleep(1500)
-        //browser.wait(
-        //    EC.invisibilityOf(this.loader),
-        //    TIMEOUT.m,
-        //    "The loader in search menu still visible"
-        //);
+        const _searchRes = EC.visibilityOf(this.searchResult);
+        const _loader = EC.invisibilityOf(this.loader);
+
+        return browser.wait(EC.and(_searchRes, _loader), TIMEOUT.m,);
     };
 }
 

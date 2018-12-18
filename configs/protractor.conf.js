@@ -1,5 +1,5 @@
 const TIMEOUT = {
-    xs: 1 * 1000,
+    xs: 1000,
     s: 5 * 1000,
     m: 10 * 1000,
     l: 15 * 1000,
@@ -16,17 +16,17 @@ const SIZE_OF_WINDOW = {
 exports.config = {
 
     baseUrl: 'https://angular.io/',
-    seleniumAddress: 'http://localhost:4444/wd/hub',
-    directConnect: true,
+    directConnect: false,
     globalTimeout: TIMEOUT.xl * 10,
     pageTimeout: TIMEOUT.xl * 10,
     allScriptsTimeout: TIMEOUT.xl * 10,
     ignoreUncaughtExceptions: true,
+    SELENIUM_PROMISE_MANAGER: false,
 
     specs: [
         '../features/**/*.feature'
     ],
-    
+
     capabilities: {
         browserName: 'chrome',
         loggingPrefs: {
@@ -35,19 +35,19 @@ exports.config = {
             browser: 'ALL'
         }
     },
-    
+
     framework: 'custom',
     frameworkPath: require.resolve('protractor-cucumber-framework'),
 
     cucumberOpts: {
         require: ['../step_definitions/**/*.js'],
-        tags: ['~@wip'],
+        tags: ['@suite', '~@wip'],
         format: ['json:./artifacts/reports/json/report.json']
     },
-    
+
     onPrepare: () => {
         const chai = require('chai');
-        
+
         global.TIMEOUT = TIMEOUT;
         global.EC = protractor.ExpectedConditions;
 
@@ -56,7 +56,7 @@ exports.config = {
         global.assert = chai.assert;
         global.should = chai.should;
 
-        browser.waitForAngularEnabled(true);
-        return browser.driver.manage().window().setSize(SIZE_OF_WINDOW.fullHD.width, SIZE_OF_WINDOW.fullHD.height);
+        return browser.waitForAngularEnabled(true)
+            .then(() => browser.driver.manage().window().setSize(SIZE_OF_WINDOW.fullHD.width, SIZE_OF_WINDOW.fullHD.height))
     }
 };

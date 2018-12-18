@@ -8,45 +8,44 @@ const apiPage = new ApiPage();
 
 setDefaultTimeout(TIMEOUT.xl * 20);
 
-Given(/the api page is opened/, () => {
+Given(/^the api page is opened$/, () => {
     return apiPage.open();
 });
 
-When(/I fill (type|status|search) field with data: (.+)/, (value, data) => {
+When(/^I fill (type|status|search) field with data: (.+)$/, (value, data) => {
 
-    let element;
+    let elem;
 
     switch (value) {
         case 'type':
-            element = apiPage.typeField;
+            elem = apiPage.typeField;
             break;
         case 'status':
-            element = apiPage.statusField;
+            elem = apiPage.statusField;
             break;
         case 'search':
-            element = apiPage.searchField;
+            elem = apiPage.searchField;
             break;
         default:
             const errorMessage = 'Set the correct position of the "get started" button';
             logger.error(errorMessage);
             throw new Error(errorMessage);
-    };
+    }
 
-    browser.wait(
-        EC.visibilityOf(element),
+    return browser.wait(
+        EC.visibilityOf(elem),
         TIMEOUT.m,
         `The element: ${value} is not visible`
-    );
-
-    element.click();
-    return browser.$(by.buttonText(data)).click();
+    )
+        .then(() => elem.click())
+        .then(() => browser.element(by.buttonText(data)).click())
 });
 
-Then(/the api filter should be visible/, () => {
+Then(/^the api filter should be visible$/, () => {
     return expect(apiPage.apiFilter.isDisplayed()).to.eventually.be.true;
 });
 
-Then(/I get (.+) results/, (number) => {
+Then(/^I get (.+) results$/, (number) => {
     return expect(apiPage.itemsOfResult.count()).to.eventually.be.equal(
         number,
         `The number of search result does not match the expected result: ${number}`

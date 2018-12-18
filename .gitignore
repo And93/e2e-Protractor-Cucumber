@@ -1,7 +1,7 @@
 node_modules
 .idea
+package-lock.json
 
-artifacts/logs/*.log
-artifacts/logs/*.json
-artifacts/reports/json/*.json
-artifacts/screenshots/*.png
+artifacts/logs/**
+artifacts/reports/**
+artifacts/screenshots/**

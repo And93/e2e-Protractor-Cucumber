@@ -11,11 +11,11 @@ function indexOfBlock(index) {
     return Number(index) - 1;
 }
 
-Given(/the home page is opened/, () => {
+Given(/^the home page is opened$/, () => {
     return homePage.open();
 });
 
-When(/click the button at the (top|bottom) of the page/, (position) => {
+When(/^click the button at the (top|bottom) of the page$/, (position) => {
 
     let index;
 
@@ -35,15 +35,15 @@ When(/click the button at the (top|bottom) of the page/, (position) => {
     return homePage.startedButtons.get(index).click();
 });
 
-When(/scroll to (.+) block/, (index) => {
+When(/^scroll to (.+) block$/, (index) => {
     return homePage.scrollTo(homePage.getBlock(indexOfBlock(index)));
 });
 
-Then(/the 'get started' button should be visible/, () => {
+Then(/^the 'get started' button should be visible$/, () => {
     return expect(homePage.startedButtons.get(1).isDisplayed()).to.eventually.be.true;
 });
 
-Then(/the block (.+) should be visible/, (index) => {
+Then(/^the block (.+) should be visible$/, (index) => {
     return expect(homePage.getBlock(indexOfBlock(index)).isDisplayed()).to.eventually.be.true;
 });
 

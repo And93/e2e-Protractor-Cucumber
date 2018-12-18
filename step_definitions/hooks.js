@@ -5,19 +5,19 @@ const fs = require('fs');
 
 setDefaultTimeout(TIMEOUT.xl * 20);
 
-After(function (testCase) {
+After(testCase => {
     if (testCase.result.status === Status.FAILED) {
 
-        const fileName = `${testCase.pickle.name} ${new Date().getTime()}`;
+        const fileName = `${testCase.pickle.name} ${new Date().getTime()}`,
+            logsFilePath = `./artifacts/logs/${fileName}.json`,
+            screenDirPath = './artifacts/screenshots',
+            screenFilePath = `${screenDirPath}/${fileName}.png`;
 
-        browser.driver.manage().logs().getAvailableLogTypes().then(logs => {
-            
-            const logsFilePath = `./artifacts/logs/${fileName}.json`;
-
+        return browser.driver.manage().logs().getAvailableLogTypes().then(logs => {
             logs.forEach(log => {
-                browser.driver.manage().logs().get(log).then(data => {
+                return browser.driver.manage().logs().get(log).then(data => {
                     if (data.length !== 0) {
-                        fs.writeFile(logsFilePath, JSON.stringify(data, null, ' '), err => {
+                        return fs.writeFile(logsFilePath, JSON.stringify(data, null, ' '), err => {
                             if (err) {
                                 throw new Error(err);
                             }
@@ -25,19 +25,18 @@ After(function (testCase) {
                     }
                 });
             });
-        }).catch(err => {throw new Error(err)});
-
-        return browser.takeScreenshot().then(screenShot => {
-            
-            const screenDirPath = './artifacts/screenshots',
-                screenFilePath = `${screenDirPath}/${fileName}.png`;
-
-            fs.existsSync(screenDirPath) || fs.mkdirSync(screenDirPath);
-            const decodedImage = new Buffer(screenShot, 'base64');    
-            let stream = fs.createWriteStream(screenFilePath);
-            stream.write(new Buffer(screenShot, 'base64'));
-            stream.end();
-            return this.attach(decodedImage, 'image/png');
-        });
+        })
+            .then(() => browser.takeScreenshot())
+            .then(screenShot => {
+                fs.existsSync(screenDirPath) || fs.mkdirSync(screenDirPath);
+                const decodedImage = new Buffer(screenShot, 'base64');
+                let stream = fs.createWriteStream(screenFilePath);
+                stream.write(new Buffer(screenShot, 'base64'));
+                stream.end();
+                return this.attach(decodedImage, 'image/png');
+            })
+            .catch(err => {
+                throw new Error(err)
+            });
     }
 });

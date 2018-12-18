@@ -7,11 +7,11 @@ const quickStartPage = new QuickStartPage();
 
 setDefaultTimeout(TIMEOUT.xl * 20);
 
-Given(/the QuickStart page is opened$/, () => {
+Given(/^the QuickStart page is opened$/, () => {
     return quickStartPage.open();
 });
 
-Then(/the QuickStart page is opened \(assert\)/, () => {
+Then(/^the QuickStart page is opened \(assert\)$/, () => {
     return browser.wait(
         EC.visibilityOf(quickStartPage.guideQuickStar),
         TIMEOUT.m,

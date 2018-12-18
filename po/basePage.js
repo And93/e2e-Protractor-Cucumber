@@ -10,7 +10,7 @@ const search = new Search();
 const logger = require('../configs/winstone.conf').logger;
 
 class BasePage {
-    
+
     constructor() {
         this.header = header;
         this.footer = footer;
@@ -18,14 +18,15 @@ class BasePage {
     };
 
     open(path, expectedElement) {
-        browser.get('/' + path);
-        logger.info(`I have visited: ${browser.baseUrl}/${path}`);
-        
-        return browser.wait(
-            EC.visibilityOf(expectedElement),
-            TIMEOUT.m,
-            `The ${expectedElement.name} page was not open`
-        );
+        return browser.get('/' + path)
+            .then(() => logger.info(`I have visited: ${browser.baseUrl}/${path}`))
+            .then(() => {
+                return browser.wait(
+                    EC.visibilityOf(expectedElement),
+                    TIMEOUT.m,
+                    `The ${expectedElement.name} page was not open`
+                );
+            });
     };
 
     scrollTo(element) {
@@ -38,7 +39,7 @@ class BasePage {
             `The title of the page does not have the expected title: ${title}`
         );
     };
-    
+
     getPageTitle() {
         return browser.getTitle();
     };

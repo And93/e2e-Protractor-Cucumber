@@ -8,12 +8,12 @@ const search = new Search();
 
 setDefaultTimeout(TIMEOUT.xl * 20);
 
-When(/input (.+) into the search field$/, (data) => {
+When(/^input (.+) into the search field$/, (data) => {
     logger.info(`I have filled search field with data ${data}`);
     return search.searchField.sendKeys(data);
 });
 
-Then(/the search field is visible/, () => {
+Then(/^the search field is visible$/, () => {
     return browser.wait(
         EC.visibilityOf(search.searchField),
         TIMEOUT.m,
@@ -21,35 +21,32 @@ Then(/the search field is visible/, () => {
     );
 });
 
-Then(/list of search results is empty/, () => {
-    search.waitSearchResultMenu();
-    return expect(search.searchResultItem.count()).to.eventually.equal(0);
+Then(/^list of search results is empty$/, () => {
+    return search.waitSearchResultMenu()
+        .then(() => expect(search.searchResultItem.count()).to.eventually.equal(0))
 });
 
-Then(/list of search results has (.+)/, async (results) => {
-    search.waitSearchResultMenu();
+Then(/^list of search results has (.+)$/, (results) => {
+    return search.waitSearchResultMenu().then(() => {
+        const noResultsFound = 'No results found.';
 
-    const noResultsFound = 'No results found.';
+        if (results === noResultsFound) {
+            return expect(search.searchResult.getText()).to.eventually.equal(
+                noResultsFound,
+                'There is no inscription "No results found." In the list of search results'
+            );
+        }
 
-    if (results === noResultsFound) {
-        return expect(search.searchResult.getText()).to.eventually.equal(
-            noResultsFound,
-            'There is no inscription "No results found." In the list of search results'
-        );
-    }
-
-    browser.wait(
-        search.searchResultItem.count()
-            .then(count => count > 0)
-            .catch(err => {throw new Error(err)}),
-        TIMEOUT.m,
-        'The number of items in the list of search result is 0'
-    );
-
-    const text = await search.columnName.getText();
-
-    if (!text.join('; ').includes(results)) {
-        throw new Error(`Did not found match name of column. Expected: ${results}`);
-    }
-    return;
+        return browser.wait(
+            () => search.searchResultItem.count().then(count => count > 0),
+            TIMEOUT.m,
+            'The number of items in the list of search result is 0'
+        )
+            .then(() => search.columnName.getText())
+            .then(text => {
+                if (!text.join('; ').includes(results)) {
+                    throw new Error(`Did not found match name of column. Expected: ${results}`);
+                }
+            });
+    });
 });
