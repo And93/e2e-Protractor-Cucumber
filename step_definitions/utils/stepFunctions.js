@@ -13,9 +13,7 @@ const highlightElement = (element) => {
             return bg
         })
         .then(() => browser.executeScript('arguments[0].style.backgroundColor = "red"', element))
-        .then(() => browser.driver.sleep(1000))
         .then(() => browser.executeScript(`arguments[0].style.backgroundColor = "${bg}"`, element))
-        .then(() => browser.driver.sleep(1000))
         .catch(err => {
             logger.error('Error is: ' + err);
             throw new Error(err)
