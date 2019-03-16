@@ -1,7 +1,7 @@
 @suite
 Feature: API Page
 
-  Scenario: Check vasability API filter
+  Scenario: Check visibility API filter
     Given the api page is opened
     Then the api filter should be visible
 

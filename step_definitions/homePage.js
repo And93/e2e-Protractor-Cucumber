@@ -40,7 +40,7 @@ When(/^scroll to (.+) block$/, (index) => {
 });
 
 Then(/^the 'get started' button should be visible$/, () => {
-    return expect(homePage.startedButtons.get(1).isDisplayed()).to.eventually.be.true;
+    return expect(homePage.startedButtons.get(1).isDisplayed()).to.eventually.be.false;
 });
 
 Then(/^the block (.+) should be visible$/, (index) => {

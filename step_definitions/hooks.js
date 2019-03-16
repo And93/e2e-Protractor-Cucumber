@@ -1,6 +1,6 @@
 'use strict';
 
-const {After, Before, Status, setDefaultTimeout} = require('cucumber');
+const {After, Status, setDefaultTimeout} = require('cucumber');
 const fs = require('fs');
 
 setDefaultTimeout(TIMEOUT.xl * 20);
@@ -40,3 +40,5 @@ After(testCase => {
             });
     }
 });
+
+After(data => console.log(data.pickle));
