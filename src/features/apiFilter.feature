@@ -9,7 +9,7 @@ Feature: API Page
     Given the api page is opened
     When I fill type field with data: <TypeData>
     And I fill status field with data: <StatusData>
-    Then I get <Results> results
+    Then I get <Results> results`
 
     Examples:
       | TypeData   | StatusData | Results |

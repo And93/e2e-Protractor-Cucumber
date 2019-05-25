@@ -1,12 +1,10 @@
 'use strict';
 
-const {Then, When, Given, setDefaultTimeout} = require('cucumber');
-const logger = require('../configs/winstone.conf').logger;
+const {Then, When} = require('cucumber');
+const logger = require('../../configs/winstone.conf').logger;
 
 const Search = require('../po/common/search');
 const search = new Search();
-
-setDefaultTimeout(TIMEOUT.xl * 20);
 
 When(/^input (.+) into the search field$/, (data) => {
     logger.info(`I have filled search field with data ${data}`);

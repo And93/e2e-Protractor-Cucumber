@@ -7,10 +7,6 @@ JavaScript - Protractor - Cucumber.
 # Run tests
 1. First command line:
 
-       npm run wdmanager
-
-2. Second command line:
-
        npm test
 
 

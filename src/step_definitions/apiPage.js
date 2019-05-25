@@ -1,18 +1,16 @@
 'use strict';
 
-const {Then, When, Given, setDefaultTimeout} = require('cucumber');
-const logger = require('../configs/winstone.conf').logger;
+const {Then, When, Given} = require('cucumber');
+const logger = require('../../configs/winstone.conf').logger;
 
 const ApiPage = require('../po/apiPage');
 const apiPage = new ApiPage();
-
-setDefaultTimeout(TIMEOUT.xl * 20);
 
 Given(/^the api page is opened$/, () => {
     return apiPage.open();
 });
 
-When(/^I fill (type|status|search) field with data: (.+)$/, (value, data) => {
+When(/^I fill (type|status|search) field with data: (.+)$/, async (value, data) => {
 
     let elem;
 
@@ -32,13 +30,13 @@ When(/^I fill (type|status|search) field with data: (.+)$/, (value, data) => {
             throw new Error(errorMessage);
     }
 
-    return browser.wait(
+    await browser.wait(
         EC.visibilityOf(elem),
         TIMEOUT.m,
         `The element: ${value} is not visible`
-    )
-        .then(() => elem.click())
-        .then(() => browser.element(by.buttonText(data)).click())
+    );
+    await elem.click();
+    await browser.element(by.buttonText(data)).click();
 });
 
 Then(/^the api filter should be visible$/, () => {

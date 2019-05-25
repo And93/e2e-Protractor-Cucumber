@@ -7,7 +7,7 @@ const Search = require('./common/search');
 const header = new Header();
 const footer = new Footer();
 const search = new Search();
-const logger = require('../configs/winstone.conf').logger;
+const logger = require('../../configs/winstone.conf').logger;
 
 class BasePage {
 

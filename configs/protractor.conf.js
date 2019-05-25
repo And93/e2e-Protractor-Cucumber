@@ -24,7 +24,7 @@ exports.config = {
     SELENIUM_PROMISE_MANAGER: false,
 
     specs: [
-        '../features/**/*.feature'
+        '../src/features/**/*.feature'
     ],
 
     capabilities: {
@@ -33,19 +33,22 @@ exports.config = {
             driver: 'ALL',
             server: 'ALL',
             browser: 'ALL'
-        }
+        },
+        count: 1,
+        shardTestFiles: false,
+        maxInstances: 1
     },
 
     framework: 'custom',
     frameworkPath: require.resolve('protractor-cucumber-framework'),
 
     cucumberOpts: {
-        require: ['../step_definitions/**/*.js'],
+        require: ['../src/step_definitions/**/*.js'],
         tags: ['@suite', '~@wip'],
         format: ['json:./artifacts/reports/json/report.json']
     },
 
-    onPrepare: () => {
+    onPrepare: async () => {
         const chai = require('chai');
 
         global.TIMEOUT = TIMEOUT;
@@ -56,7 +59,7 @@ exports.config = {
         global.assert = chai.assert;
         global.should = chai.should;
 
-        return browser.waitForAngularEnabled(true)
-            .then(() => browser.driver.manage().window().setSize(SIZE_OF_WINDOW.fullHD.width, SIZE_OF_WINDOW.fullHD.height))
+        await browser.waitForAngularEnabled(true);
+        await browser.driver.manage().window().setSize(SIZE_OF_WINDOW.fullHD.width, SIZE_OF_WINDOW.fullHD.height);
     }
 };

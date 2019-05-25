@@ -1,18 +1,19 @@
 {
   "name": "e2e-protractor-cucumber",
   "version": "1.0.0",
-  "description": "Final project with report, logs, screenshots. Stack: JS + Protractor + Cucumber",
+  "description": "project with report, logs, screenshots. Stack: JS + Protractor + Cucumber",
   "scripts": {
     "postinstall": "webdriver-manager update --gecko false --ie false --ignore_ssl --alternate_cdn",
     "pretest": "eslint ./",
     "test": "protractor ./configs/protractor.conf.js",
-    "posttest": "node ./configs/reporter.conf.js"
+    "posttest": "node ./configs/reporter.conf.js",
+    "kill": "chromedriver_killer.bat"
   },
   "author": "Andrei Dzeichyk",
   "license": "ISC",
   "require": {
-    "node": ">=8.11.3",
-    "npm": ">=5.6.0"
+    "node": ">=12.3.1",
+    "npm": ">=6.9.0"
   },
   "dependencies": {
     "babel-eslint": "10.0.1",

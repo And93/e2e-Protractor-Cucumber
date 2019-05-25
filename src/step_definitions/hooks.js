@@ -1,6 +1,6 @@
 'use strict';
 
-const {After, Status, setDefaultTimeout} = require('cucumber');
+const { After, Status, setDefaultTimeout } = require('cucumber');
 const fs = require('fs');
 
 setDefaultTimeout(TIMEOUT.xl * 20);
@@ -13,19 +13,21 @@ After(testCase => {
             screenDirPath = './artifacts/screenshots',
             screenFilePath = `${screenDirPath}/${fileName}.png`;
 
-        return browser.driver.manage().logs().getAvailableLogTypes().then(logs => {
-            logs.forEach(log => {
-                return browser.driver.manage().logs().get(log).then(data => {
-                    if (data.length !== 0) {
-                        return fs.writeFile(logsFilePath, JSON.stringify(data, null, ' '), err => {
-                            if (err) {
-                                throw new Error(err);
+        return browser.driver.manage().logs().getAvailableLogTypes()
+            .then(logs => {
+                logs.forEach(log => {
+                    return browser.driver.manage().logs().get(log)
+                        .then(data => {
+                            if (data.length) {
+                                return fs.writeFile(logsFilePath, JSON.stringify(data, null, ' '), err => {
+                                    if (err) {
+                                        throw new Error(err);
+                                    }
+                                });
                             }
                         });
-                    }
                 });
-            });
-        })
+            })
             .then(() => browser.takeScreenshot())
             .then(screenShot => {
                 fs.existsSync(screenDirPath) || fs.mkdirSync(screenDirPath);
@@ -40,5 +42,3 @@ After(testCase => {
             });
     }
 });
-
-After(data => console.log(data.pickle));

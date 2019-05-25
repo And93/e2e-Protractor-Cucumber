@@ -1,11 +1,9 @@
 'use strict';
 
-const {Then, When, Given, setDefaultTimeout} = require('cucumber');
-const logger = require('../configs/winstone.conf').logger;
+const {Then, When, Given} = require('cucumber');
+const logger = require('../../configs/winstone.conf').logger;
 const HomePage = require('../po/homePage');
 const homePage = new HomePage();
-
-setDefaultTimeout(TIMEOUT.xl * 20);
 
 function indexOfBlock(index) {
     return Number(index) - 1;
